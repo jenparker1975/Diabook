@@ -1,0 +1,10 @@
+id,mfg,name,chipset
+"1","Intel","i7-6800k","LGA2011-v3"
+"2","Intel","i7-6850k","LGA2011-v3"
+"3","Intel","i7-6700k","LGA1151"
+"4","Intel","i7-7700k","LGA1151"
+"5","Intel","i5-7600k","LGA1151"
+"6","AMD","Ryzen 1800X","AM4"
+"7","AMD","Ryzen 1700X","AM4"
+"8","AMD","Ryzen 1700","AM4"
+"9","AMD","FX 8350","AM3+"
