@@ -1,0 +1,26 @@
+
+match n
+return distinct labels(n)
+
+
+Match (person:Person) return person
+
+MATCH p=()-[r:DIAGNOSED_WITH]->() RETURN p LIMIT 25
+
+
+-- match on an existing node, plus create a new node and relationship
+MATCH (p:Person {name:'Evan'})
+CREATE (p)-[:WEARS {since: 2017}]->(f:Medication {name: 'Omnipod'})
+
+
+-- who was diagnosed within the last five years
+MATCH (user:Person {name:'Harry'})-[:FRIENDS_WITH*1..5]->(fof)-[diag:DIAGNOSED_WITH]->(disease:Disease {name:'Type 1 Diabetes'})
+WHERE NOT (user)-[:FRIENDS_WITH]->(fof)
+AND diag.since >= 2012
+return fof
+
+-- who was diagnosed after that
+MATCH (user:Person {name:'Harry'})-[:FRIENDS_WITH*1..5]->(fof)-[diag:DIAGNOSED_WITH]->(disease:Disease {name:'Type 1 Diabetes'})
+WHERE NOT (user)-[:FRIENDS_WITH]->(fof)
+AND diag.since < 2012
+return fof
