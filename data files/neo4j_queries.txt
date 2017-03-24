@@ -1,9 +1,17 @@
 
-match n
+match (n)
 return distinct labels(n)
 
 
 Match (person:Person) return person
+
+
+MATCH (user:Person {name:'Bill'})
+return user
+
+MATCH (user:Person)
+WHERE user.name = 'Bill'
+return user
 
 MATCH p=()-[r:DIAGNOSED_WITH]->() RETURN p LIMIT 25
 
@@ -12,15 +20,26 @@ MATCH p=()-[r:DIAGNOSED_WITH]->() RETURN p LIMIT 25
 MATCH (p:Person {name:'Evan'})
 CREATE (p)-[:WEARS {since: 2017}]->(f:Medication {name: 'Omnipod'})
 
+--find all people
+MATCH (n:Person), (m:Disease) RETURN n, m LIMIT 25
+
+
+-- find all friends of Bill who have been diagnosed with Type 1:
+MATCH (user:Person {name:"Bill"})-[:FRIENDS_WITH]->(fof)-[:DIAGNOSED_WITH]->(disease) RETURN user, fof
+OR
+MATCH (user:Person {name:"Bill"})-[:FRIENDS_WITH*1]->(fof)-[:DIAGNOSED_WITH]->(disease) RETURN user, fof
+
+
+
 
 -- who was diagnosed within the last five years
-MATCH (user:Person {name:'Harry'})-[:FRIENDS_WITH*1..5]->(fof)-[diag:DIAGNOSED_WITH]->(disease:Disease {name:'Type 1 Diabetes'})
+MATCH (user:Person {name:'Bill'})-[:FRIENDS_WITH*1..5]->(fof)-[diag:DIAGNOSED_WITH]->(disease:Disease {name:'Type 1 Diabetes'})
 WHERE NOT (user)-[:FRIENDS_WITH]->(fof)
 AND diag.since >= 2012
 return fof
 
--- who was diagnosed after that
-MATCH (user:Person {name:'Harry'})-[:FRIENDS_WITH*1..5]->(fof)-[diag:DIAGNOSED_WITH]->(disease:Disease {name:'Type 1 Diabetes'})
+-- who was diagnosed over five years ago
+MATCH (user:Person {name:'Bill'})-[:FRIENDS_WITH*1..5]->(fof)-[diag:DIAGNOSED_WITH]->(disease:Disease {name:'Type 1 Diabetes'})
 WHERE NOT (user)-[:FRIENDS_WITH]->(fof)
 AND diag.since < 2012
 return fof
