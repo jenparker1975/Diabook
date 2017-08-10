@@ -2,5 +2,5 @@ appuser
 b.9Slnve6DbLqJ.t4pwBTK2ixLPAFQZ
 
 
-diabook
+neo4j
 password1

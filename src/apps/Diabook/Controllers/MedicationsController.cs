@@ -12,7 +12,7 @@ namespace Diabook.Controllers
         // GET api/values
         public IEnumerable<Medication> Get()
         {
-            var client = new GraphClient(new Uri("http://diabook:password1@localhost:7474/db/data"));
+            var client = new GraphClient(new Uri("http://neo4j:password1@localhost:7474/db/data"));
             client.Connect();
             var query = client
                  .Cypher
@@ -27,7 +27,7 @@ namespace Diabook.Controllers
         // GET api/values/5
         public Medication Get(int id)
         {
-            var client = new GraphClient(new Uri("http://diabook:password1@localhost:7474/db/data"));
+            var client = new GraphClient(new Uri("http://neo4j:password1@localhost:7474/db/data"));
             client.Connect();
             var query = client
                  .Cypher
@@ -44,7 +44,7 @@ namespace Diabook.Controllers
         // POST api/values
         public void Post([FromBody]Medication medication)
         {
-            var client = new GraphClient(new Uri("http://diabook:password1@localhost:7474/db/data"));
+            var client = new GraphClient(new Uri("http://neo4j:password1@localhost:7474/db/data"));
             client.Connect();
             var query = client.Cypher
                 .Create("(medication:Medication {newMed})")
@@ -58,7 +58,7 @@ namespace Diabook.Controllers
         // PUT api/values/5
         public void Put(int id, [FromBody]Medication value)
         {
-            var client = new GraphClient(new Uri("http://diabook:password1@localhost:7474/db/data"));
+            var client = new GraphClient(new Uri("http://neo4j:password1@localhost:7474/db/data"));
             client.Connect();
             client.Cypher
                 .Merge("(medication:Medication { id: {id} })")
@@ -75,7 +75,7 @@ namespace Diabook.Controllers
         // DELETE api/values/5
         public void Delete(int id)
         {
-            var client = new GraphClient(new Uri("http://diabook:password1@localhost:7474/db/data"));
+            var client = new GraphClient(new Uri("http://neo4j:password1@localhost:7474/db/data"));
             client.Connect();
             client.Cypher
                 .Match("(medication:Medication)")

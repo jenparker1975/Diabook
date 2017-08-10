@@ -14,7 +14,7 @@ namespace Diabook.Controllers
         [Route("api/person/{name}/GetFriendList")]
         public IEnumerable<Person> Get(string name)
         {
-            var client = new GraphClient(new Uri("http://diabook:password1@localhost:7474/db/data"));
+            var client = new GraphClient(new Uri("http://neo4j:password1@localhost:7474/db/data"));
             client.Connect();
             var query = client.Cypher
                 .Match("(user:Person)-[FRIENDS_WITH]-(friend:Person)")
@@ -31,7 +31,7 @@ namespace Diabook.Controllers
         [Route("api/person/{name}/FindType1/{degreeOfSeparation}")]
         public IEnumerable<Person> Get(string name, int degreeOfSeparation)
         {
-            var client = new GraphClient(new Uri("http://diabook:password1@localhost:7474/db/data"));
+            var client = new GraphClient(new Uri("http://neo4j:password1@localhost:7474/db/data"));
             client.Connect();
             var query = client.Cypher
                 .Match(string.Format("(user:Person)-[:FRIENDS_WITH*{0}]->(fof)-[:DIAGNOSED_WITH]->(disease)", degreeOfSeparation))
